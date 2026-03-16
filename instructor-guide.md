@@ -2,7 +2,7 @@
 
 ## Module Overview
 
-This module transitions mid-career professionals from local container development to production-grade orchestration. Students will learn how Kubernetes (K8s) solves the challenges of running AI models at scale, focusing on high availability, resource optimization, and automated health checks. The session bridges the gap between a single Docker container and a distributed system capable of handling variable inference loads.
+This module transitions professionals from local container development to production-grade orchestration. Students will learn how Kubernetes (K8s) solves the challenges of running AI models at scale, focusing on high availability, resource optimization, and automated health checks. The session bridges the gap between a single Docker container and a distributed system capable of handling variable inference loads.
 
 ## Learning Objectives
 
