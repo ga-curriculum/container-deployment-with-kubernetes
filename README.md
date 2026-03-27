@@ -1,4 +1,4 @@
-# CONTAINER DEPLOYMENT WITH KUBERNETES
+# Container Deployment with Kubernetes
 
 **Session Time:** 120 minutes
 
@@ -6,13 +6,12 @@
 
 ## Table of Contents
 
-1. Introduction to AI Orchestration
-2. Benefits of Containerization for AI
-3. Deploying and Managing Kubernetes Clusters
-4. Analyzing Performance and Scalability
-5. Lab: Testing Workflow Setup
-6. Wrap-Up and Reflection
-7. Resources
+1. Benefits of Containerization for AI
+2. Deploying and Managing Kubernetes Clusters
+3. Analyzing Performance and Scalability
+4. Lab: Testing Workflow Setup
+5. Wrap-Up and Reflection
+6. Resources
 
 ---
 
@@ -34,6 +33,7 @@ By the end of this module, participants will be able to:
 | 2       | Kubernetes Architecture & Orchestration | 25                 |
 | 3       | Scalability and Resource Optimization   | 20                 |
 | 4       | Lab: Testing Workflow Setup             | 60                 |
+**
 
 ---
 
@@ -67,16 +67,28 @@ def test_inference_shape():
 
 ```
 
+
 ---
 
 ## 2. Deploying and Managing Kubernetes Clusters
 
-Kubernetes (K8s) acts as the "Operating System" for your data center, managing where and how your AI containers run.
-
+Kubernetes (K8s) acts as the "Operating System" for your data center, managing where and how your AI containers run. 
 ### Tool: Kubernetes & Minikube
 
 * **Minikube:** A local Kubernetes tool that allows professionals to simulate a production cluster on a single machine.
 * **Kubernetes:** The production-grade orchestrator that manages Pods (the smallest deployable units containing your containers).
+
+### Essential `kubectl` Commands
+To interact with your cluster and deploy models, you will use the following core commands:
+* **Start Minikube:** `minikube start --driver=docker`
+* **Apply manifests:** `kubectl apply -f k8s/`
+* **Check pod status:** `kubectl get pods`
+* **Read logs:** `kubectl logs <pod-name>`
+
+### Ensuring Availability: Readiness and Liveness Probes
+In AI workloads specifically, a model pod that has started but is still loading weights into GPU memory will accept connections, receive requests, and return 503 errors until loading is complete. 
+* A **Readiness Probe** is the Kubernetes mechanism that prevents this. 
+* By exposing a `/health` endpoint, Kubernetes knows not to route user traffic to the pod until it is fully initialized and ready to serve predictions.
 
 ### Architecture Diagram
 
@@ -93,6 +105,7 @@ graph TD
     User((User/Engineer)) -->|kubectl| API
 
 ```
+**
 
 **Practical Example:**
 Deploying an AI inference service using a `deployment.yaml` file to ensure 3 replicas of the model are always running.
@@ -126,12 +139,26 @@ spec:
 
 In AI Systems Engineering, performance is measured by throughput (requests per second) and latency, while scalability is the system's ability to handle increased load by adding resources.
 
+### Automating Scalability: Horizontal Pod Autoscaler (HPA)
+To handle variable inference loads, Kubernetes uses the Horizontal Pod Autoscaler (HPA).  Instead of guessing how many pods you need, you define a target metric.
+
+For example, an `hpa.yaml` configuration defines the `minReplicas`, `maxReplicas`, and an `averageUtilizationPercentage` (like targeting 80% CPU usage). When inference traffic spikes and CPU usage exceeds 80%, HPA automatically spins up new pod replicas.
+
+### Technical Detail: Resource Requests and Limits
+
+To optimize performance, engineers must define **Resources**:
+
+* **Requests:** The minimum CPU/RAM the AI container is guaranteed.
+* **Limits:** The maximum CPU/RAM the container can consume. This prevents a "runaway" inference process from crashing the entire cluster. 
+
+**Crucial Failure Modes:**
+Exceeding these limits results in two distinct failure states:
+* Exceeding the **memory limit** causes an OOM (Out of Memory) eviction, meaning the pod is killed.
+* Exceeding the **CPU limit** causes CPU throttling, meaning the pod is slowed down, not killed.
+
 ### Tool: GitHub Actions (Continuous Deployment)
 
-Automation ensures that performance checks are integrated into the deployment lifecycle.
-
-**Practical Example:**
-A GitHub Action that triggers a deployment to a Kubernetes cluster only after the `Pytest` suite confirms the model meets latency requirements.
+Automation ensures that performance checks are integrated into the deployment lifecycle. A GitHub Action triggers a deployment to a Kubernetes cluster only after the `Pytest` suite confirms the model meets latency requirements.
 
 ```mermaid
 sequenceDiagram
@@ -151,12 +178,6 @@ sequenceDiagram
 
 ```
 
-### Technical Detail: Resource Requests and Limits
-
-To optimize performance, engineers must define **Resources**:
-
-* **Requests:** The minimum CPU/RAM the AI container is guaranteed.
-* **Limits:** The maximum CPU/RAM the container can consume. This prevents a "runaway" inference process from crashing the entire cluster.
 
 ---
 
@@ -174,7 +195,7 @@ To optimize performance, engineers must define **Resources**:
 
 1. Why is a rolling update in Kubernetes safer for a high-traffic AI model than a manual "delete and replace" approach?
 2. How do resource limits in Kubernetes impact the cost-efficiency of an AI project?
-3. How does Pytest serve as the first line of defense in an automated CI/CD pipeline?
+3. If an AI model pod repeatedly enters a `CrashLoopBackOff` state, how might distinguishing between OOM eviction and CPU throttling guide your troubleshooting steps?
 
 ---
 
@@ -185,3 +206,4 @@ To optimize performance, engineers must define **Resources**:
 * **Testing for ML:** [Pytest Documentation](https://docs.pytest.org/en/stable/)
 * **CI/CD Orchestration:** [GitHub Actions for Azure/AWS Kubernetes](https://github.com/features/actions)
 * **Container Security:** [Best Practices for Dockerizing AI Models](https://www.google.com/search?q=https://www.docker.com/blog/how-to-dockerize-your-machine-learning-workflows/)
+```
