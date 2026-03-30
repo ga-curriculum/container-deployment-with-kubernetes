@@ -33,7 +33,6 @@ By the end of this module, participants will be able to:
 | 2       | Kubernetes Architecture & Orchestration | 25                 |
 | 3       | Scalability and Resource Optimization   | 20                 |
 | 4       | Lab: Testing Workflow Setup             | 60                 |
-**
 
 ---
 
@@ -105,7 +104,6 @@ graph TD
     User((User/Engineer)) -->|kubectl| API
 
 ```
-**
 
 **Practical Example:**
 Deploying an AI inference service using a `deployment.yaml` file to ensure 3 replicas of the model are always running.
@@ -185,7 +183,12 @@ sequenceDiagram
 
 **Objective:** Integrate automated tests into a deployment pipeline using PyTest and GitHub Actions. This lab ensures learners can verify AI model and API performance consistently.
 
-[Reference: Lab content]
+> [!NOTE]
+>
+> [**Lab: Testing Workflow Setup**](https://git.generalassemb.ly/ai-systems-engineering-reliability/lab-8-testing-workflow-setup)
+> 
+> **Note**: Please refer to the dedicated [Lab Guide](https://git.generalassemb.ly/ai-systems-engineering-reliability/lab-8-testing-workflow-setup)
+ for full instructions, architectural constraints, and deliverables.
 
 ---
 

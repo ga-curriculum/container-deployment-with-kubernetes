@@ -1,5 +1,7 @@
 
 # Instructor Guide: Container Deployment with Kubernetes
+
+
 ## Module Overview
 
 This module transitions professionals from local container development to production-grade orchestration. Students will learn how Kubernetes (K8s) solves the challenges of running AI models at scale, focusing on high availability, resource optimization, and automated health checks. The session bridges the gap between a single Docker container and a distributed system capable of handling variable inference loads.
@@ -65,7 +67,8 @@ graph TD
 
 ## Resources for the Instructor
 
-* **Reference:** * [Kubernetes Official Interactive Tutorials](https://kubernetes.io/docs/tutorials/)
+* **Reference:** 
+  * [Kubernetes Official Interactive Tutorials](https://kubernetes.io/docs/tutorials/)
   * [Minikube Documentation](https://minikube.sigs.k8s.io/docs/)
 * **AI Prompt Bank:**
   * *"Write a Kubernetes Deployment YAML for a Python API with 3 replicas and a memory limit of 2Gi."*
