@@ -185,9 +185,9 @@ sequenceDiagram
 
 > [!NOTE]
 >
-> [**Lab: Testing Workflow Setup**](https://git.generalassemb.ly/ai-systems-engineering-reliability/lab-8-testing-workflow-setup)
+> [**Lab: Testing Workflow Setup**](https://github.com/ga-curriculum/lab-8-testing-workflow-setup)
 > 
-> **Note**: Please refer to the dedicated [Lab Guide](https://git.generalassemb.ly/ai-systems-engineering-reliability/lab-8-testing-workflow-setup)
+> **Note**: Please refer to the dedicated [Lab Guide](https://github.com/ga-curriculum/lab-8-testing-workflow-setup)
  for full instructions, architectural constraints, and deliverables.
 
 ---
